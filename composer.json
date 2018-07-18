@@ -1,0 +1,31 @@
+{
+  "name": "xaddax/webonxy-middleware",
+  "type": "library",
+  "description": "Webonxy GraqhQL middleware",
+  "keywords": ["GraphQl", "PSR-7", "PSR-15", "webonxy"],
+  "license": "MIT",
+  "require": {
+    "firebase/php-jwt": "dev-master",
+    "php": ">=7.1",
+    "psr/container": "^1.0",
+    "psr/http-server-middleware": "^1.0",
+    "psr/log": "^1.0",
+    "webonyx/graphql-php": "^0.12.4"
+  },
+  "require-dev": {
+    "codeception/codeception": "^2.4.2"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Xaddax\\GraphQL\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Fixture\\": "tests/_support/Fixture",
+      "Tests\\Functional\\": "tests/functional",
+      "Tests\\Unit\\": "tests/unit"
+    }
+  }
+}
