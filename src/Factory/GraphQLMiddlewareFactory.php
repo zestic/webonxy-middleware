@@ -14,6 +14,6 @@ final class GraphQLMiddlewareFactory
         $server = $container->get(StandardServer::class);
         $config = $container->get('config');
 
-        return new GraphQLMiddleware($server, $config['middleware']['graphQL']);
+        return new GraphQLMiddleware($server, $config['graphQL']['middleware']);
     }
 }

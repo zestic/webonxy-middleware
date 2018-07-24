@@ -7,31 +7,26 @@ use GraphQL\Server\StandardServer;
 use Prophecy\Prophet;
 use Psr\Container\ContainerInterface;
 use UnitTester;
-use Xaddax\GraphQL\Factory\GraphQLMiddlewareFactory;
-use Xaddax\GraphQL\Middleware\GraphQLMiddleware;
+use Xaddax\GraphQL\Factory\StandardServerFactory;
 
-class GraphQLMiddlewareFactoryCest
+class StandardServerFactoryCest
 {
     public function testInvoke(UnitTester $I)
     {
         $prophet = new Prophet();
         $prophecy = $prophet->prophesize();
         $prophecy->willImplement(ContainerInterface::class);
-        $prophecy->get(StandardServer::class)->willReturn(new StandardServer([]));
         $config = [
             'graphQL' => [
-                'middleware' => [
-                    'allowedHeaders' => [
-                        'application/json',
-                    ],
+                'server' => [
                 ],
             ],
         ];
         $prophecy->get('config')->willReturn($config);
         $container = $prophecy->reveal();
 
-        $middleware = (new GraphQLMiddlewareFactory())->__invoke($container);
+        $middleware = (new StandardServerFactory())->__invoke($container);
 
-        $I->assertInstanceOf(GraphQLMiddleware::class, $middleware);
+        $I->assertInstanceOf(StandardServer::class, $middleware);
     }
 }
