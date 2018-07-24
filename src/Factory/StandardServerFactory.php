@@ -10,8 +10,11 @@ final class StandardServerFactory
 {
     public function __invoke(ContainerInterface $container): StandardServer
     {
-        $config = $container->get('config');
+        $config = $container->get('config')['graphQL']['server'];
 
-        return new StandardServer($config['graphQL']['server']);
+        $schemaClass = $config['schema'];
+        $config['schema'] = new $schemaClass();
+
+        return new StandardServer($config);
     }
 }

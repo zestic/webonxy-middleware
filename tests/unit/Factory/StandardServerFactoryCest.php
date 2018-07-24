@@ -6,6 +6,7 @@ namespace Tests\Unit\Factory;
 use GraphQL\Server\StandardServer;
 use Prophecy\Prophet;
 use Psr\Container\ContainerInterface;
+use Tests\Fixture\TestSchema;
 use UnitTester;
 use Xaddax\GraphQL\Factory\StandardServerFactory;
 
@@ -19,6 +20,7 @@ class StandardServerFactoryCest
         $config = [
             'graphQL' => [
                 'server' => [
+                    'schema' => TestSchema::class,
                 ],
             ],
         ];
