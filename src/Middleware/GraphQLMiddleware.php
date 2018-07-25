@@ -29,6 +29,10 @@ final class GraphQLMiddleware implements MiddlewareInterface
             return $handler->handle($request, $handler);
         }
 
+        if (empty($request->getParsedBody())) {
+            $json = (string) $request->getBody();
+            $request = $request->withParsedBody(json_decode($json, true));
+        }
         $result = $this->graphQLServer->executePsrRequest($request);
 
         return new JsonResponse($result);
