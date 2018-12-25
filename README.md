@@ -27,6 +27,7 @@ return [
                 'application/json',
             ],
         ],
+        'schema' => \Path\To\Schema::class,
         'server' => [
 
         ],
