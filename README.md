@@ -16,7 +16,7 @@ return [
 ];
 ```
 
-Add configuration in `config/autoload/graphq.global.php`
+Add configuration in `config/autoload/graphql.global.php`
 
 ```php
 return [
