@@ -27,8 +27,8 @@ return [
                 'application/json',
             ],
         ],
-        'schema' => \Path\To\Schema::class,
-        'server' => [
+        'schema' => \Path\To\Schema::class, // optional, defaults to webonxy Schema
+        'serverConfig' => [
 
         ],
     ],

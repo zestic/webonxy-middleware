@@ -13,7 +13,7 @@ final class StandardServerFactory
     {
         $containerConfig = $container->get('config');
 
-        $config = $containerConfig['graphQL']['server'] ?? [];
+        $config = $containerConfig['graphQL']['serverConfig'] ?? [];
 
         $schemaClass = $config['schema'] ?? Schema::class;
         $config['schema'] = $container->get($schemaClass);
