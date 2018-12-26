@@ -28,6 +28,8 @@ return [
             ],
         ],
         'schema' => \Path\To\Schema::class, // optional, defaults to webonxy Schema
+        'schemaConfig' => [], // optional, if not configured expected in Schema class constructor
+        'server' => \Path\To\Server::class, // not yet implemented, defaults to webonxy StandardServer
         'serverConfig' => [
 
         ],
