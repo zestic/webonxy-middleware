@@ -9,12 +9,13 @@
     "psr/container": "^1.0",
     "psr/http-server-middleware": "^1.0",
     "psr/log": "^1.0",
-    "webonyx/graphql-php": "^0.12.4"
+    "webonyx/graphql-php": "^14.0.0"
   },
   "require-dev": {
-    "codeception/codeception": "^2.4.2",
+    "codeception/codeception": "^4.0.0",
+    "codeception/module-asserts": "dev-master",
     "phpspec/prophecy": "~1.0",
-    "zendframework/zend-diactoros": "^1.8@dev"
+    "laminas/laminas-diactoros": "^2.4"
   },
   "minimum-stability": "dev",
   "autoload": {
