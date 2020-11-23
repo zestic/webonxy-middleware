@@ -2,10 +2,18 @@
   "name": "iampersistent/webonxy-middleware",
   "type": "library",
   "description": "Webonxy GraqhQL middleware",
-  "keywords": ["GraphQl", "PSR-7", "PSR-15", "webonxy"],
+  "keywords": [
+    "GraphQl",
+    "PSR-7",
+    "PSR-15",
+    "webonxy"
+  ],
   "license": "MIT",
+  "config": {
+    "sort-packages": true
+  },
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.1 || ^8.0",
     "psr/container": "^1.0",
     "psr/http-server-middleware": "^1.0",
     "psr/log": "^1.0",
