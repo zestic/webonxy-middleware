@@ -18,6 +18,8 @@ final class ConfigProvider
             'factories' => [
                 \GraphQL\Type\Schema::class                              =>
                     \IamPersistent\GraphQL\Middleware\Factory\SchemaFactory::class,
+                \GraphQL\Server\ServerConfig::class =>
+                    \IamPersistent\GraphQL\Middleware\Factory\ServerConfigFactory::class,
                 \IamPersistent\GraphQL\Middleware\GraphQLMiddleware::class =>
                     \IamPersistent\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory::class,
             ],

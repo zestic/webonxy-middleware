@@ -35,9 +35,11 @@ final class GraphQLMiddleware implements MiddlewareInterface
             $request = $request->withParsedBody(json_decode($json, true));
         }
 
-        $server = new StandardServer($this->serverConfig);
-
-        $result = $server->executePsrRequest($request);
+        $context = $this->serverConfig->getContext();
+        if ($context instanceof RequestContextInterface) {
+            $context->setRequest($request);
+        }
+        $result = (new StandardServer($this->serverConfig))->executePsrRequest($request);
 
         return new JsonResponse($result);
     }
