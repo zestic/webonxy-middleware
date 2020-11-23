@@ -1,26 +1,27 @@
 <?php
 declare(strict_types=1);
 
-namespace Xaddax\GraphQL\Middleware;
+namespace IamPersistent\GraphQL\Middleware;
 
+use GraphQL\Server\ServerConfig;
 use GraphQL\Server\StandardServer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 
 final class GraphQLMiddleware implements MiddlewareInterface
 {
     /** @var array */
     private $allowedHeaders;
-    /** @var StandardServer */
-    private $graphQLServer;
+    /** @var \GraphQL\Server\ServerConfig */
+    private $serverConfig;
 
-    public function __construct(StandardServer $server, array $config)
+    public function __construct(ServerConfig $serverConfig, array $config)
     {
         $this->allowedHeaders = $config['allowedHeaders'];
-        $this->graphQLServer = $server;
+        $this->serverConfig = $serverConfig;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -33,7 +34,10 @@ final class GraphQLMiddleware implements MiddlewareInterface
             $json = (string) $request->getBody();
             $request = $request->withParsedBody(json_decode($json, true));
         }
-        $result = $this->graphQLServer->executePsrRequest($request);
+
+        $server = new StandardServer($this->serverConfig);
+
+        $result = $server->executePsrRequest($request);
 
         return new JsonResponse($result);
     }

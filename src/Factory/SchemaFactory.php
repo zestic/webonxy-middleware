@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Xaddax\GraphQL\Factory;
+namespace IamPersistent\GraphQL\Middleware\Factory;
 
 use GraphQL\Type\Schema;
 use Psr\Container\ContainerInterface;

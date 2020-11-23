@@ -1,5 +1,5 @@
 {
-  "name": "xaddax/webonxy-middleware",
+  "name": "iampersistent/webonxy-middleware",
   "type": "library",
   "description": "Webonxy GraqhQL middleware",
   "keywords": ["GraphQl", "PSR-7", "PSR-15", "webonxy"],
@@ -20,7 +20,7 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "Xaddax\\GraphQL\\": "src/"
+      "IamPersistent\\GraphQL\\Middleware\\": "src/"
     }
   },
   "autoload-dev": {

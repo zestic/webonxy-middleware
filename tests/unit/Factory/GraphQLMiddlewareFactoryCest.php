@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace Tests\Unit\Factory;
 
 use GraphQL\Server\StandardServer;
+use IamPersistent\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory;
+use IamPersistent\GraphQL\Middleware\GraphQLMiddleware;
 use Prophecy\Prophet;
 use Psr\Container\ContainerInterface;
 use UnitTester;
-use Xaddax\GraphQL\Factory\GraphQLMiddlewareFactory;
-use Xaddax\GraphQL\Middleware\GraphQLMiddleware;
 
 class GraphQLMiddlewareFactoryCest
 {

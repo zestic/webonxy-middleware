@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Xaddax\GraphQL\Factory;
+namespace IamPersistent\GraphQL\Middleware\Factory;
 
-use GraphQL\Server\StandardServer;
+use GraphQL\Server\ServerConfig;
 use GraphQL\Type\Schema;
 use Psr\Container\ContainerInterface;
 
-final class StandardServerFactory
+final class ServerConfigFactory
 {
-    public function __invoke(ContainerInterface $container): StandardServer
+    public function __invoke(ContainerInterface $container): ServerConfig
     {
         $containerConfig = $container->get('config');
 
@@ -19,10 +19,12 @@ final class StandardServerFactory
         $config['schema'] = $container->get($schemaClass);
 
         $callables = [
+            'context',
             'errorFormatter',
             'errorsHandler',
             'fieldResolver',
             'persistentQueryLoader',
+            'rootValue',
         ];
         foreach ($callables as $callableProperty) {
             if (isset($config[$callableProperty])) {
@@ -34,6 +36,6 @@ final class StandardServerFactory
             }
         }
 
-        return new StandardServer($config);
+        return ServerConfig::create($config);
     }
 }
