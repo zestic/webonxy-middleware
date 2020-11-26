@@ -109,6 +109,8 @@ final class GraphQLMiddleware implements MiddlewareInterface
             }
             return $cookieParams[$this->options["cookie"]];
         };
+        
+        return null;
     }
 
     private function decodeToken(string $token): array
