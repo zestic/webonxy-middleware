@@ -7,11 +7,11 @@ use Closure;
 use GraphQL\Server\ServerConfig;
 use GraphQL\Server\StandardServer;
 use GraphQL\Type\Schema;
-use IamPersistent\GraphQL\Factory\Middleware\StandardServerFactory;
 use Tests\Fixture\TestContainer;
 use Tests\Fixture\TestResolver;
 use Tests\Fixture\TestSchema;
 use UnitTester;
+use Zestic\GraphQL\Factory\Middleware\StandardServerFactory;
 
 class StandardServerFactoryCest
 {

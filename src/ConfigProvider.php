@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IamPersistent\GraphQL\Middleware;
+namespace Zestic\GraphQL\Middleware;
 
 final class ConfigProvider
 {
@@ -17,11 +17,11 @@ final class ConfigProvider
         return [
             'factories' => [
                 \GraphQL\Type\Schema::class                              =>
-                    \IamPersistent\GraphQL\Middleware\Factory\SchemaFactory::class,
+                    \Zestic\GraphQL\Middleware\Factory\SchemaFactory::class,
                 \GraphQL\Server\ServerConfig::class =>
-                    \IamPersistent\GraphQL\Middleware\Factory\ServerConfigFactory::class,
-                \IamPersistent\GraphQL\Middleware\GraphQLMiddleware::class =>
-                    \IamPersistent\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory::class,
+                    \Zestic\GraphQL\Middleware\Factory\ServerConfigFactory::class,
+                \Zestic\GraphQL\Middleware\GraphQLMiddleware::class =>
+                    \Zestic\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory::class,
             ],
         ];
     }

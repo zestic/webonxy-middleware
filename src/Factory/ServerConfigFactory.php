@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IamPersistent\GraphQL\Middleware\Factory;
+namespace Zestic\GraphQL\Middleware\Factory;
 
 use GraphQL\Server\ServerConfig;
 use GraphQL\Type\Schema;

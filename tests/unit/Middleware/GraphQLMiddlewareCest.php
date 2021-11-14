@@ -5,12 +5,12 @@ namespace Test\Unit\Middleware;
 
 use GraphQL\Server\ServerConfig;
 use GraphQL\Server\StandardServer;
-use IamPersistent\GraphQL\Middleware\GraphQLMiddleware;
 use Laminas\Diactoros\ServerRequest;
 use Prophecy\Prophet;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Fixture\Http\TestRequestHandler;
 use UnitTester;
+use Zestic\GraphQL\Middleware\GraphQLMiddleware;
 
 class GraphQLMiddlewareCest
 {

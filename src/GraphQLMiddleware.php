@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace IamPersistent\GraphQL\Middleware;
+namespace Zestic\GraphQL\Middleware;
 
 use App\Jwt\JwtConfiguration;
 use Firebase\JWT\JWT;
 use GraphQL\Server\ServerConfig;
 use GraphQL\Server\StandardServer;
+use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Laminas\Diactoros\Response\JsonResponse;
 
 final class GraphQLMiddleware implements MiddlewareInterface
 {
@@ -109,7 +109,7 @@ final class GraphQLMiddleware implements MiddlewareInterface
             }
             return $cookieParams[$this->options["cookie"]];
         };
-        
+
         return null;
     }
 

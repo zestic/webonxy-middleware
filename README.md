@@ -43,6 +43,6 @@ the server config.
 You'll need to set up the route. In `config/routes.php`
 ```php
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
-    $app->post('/graphql', \Xaddax\GraphQL\Middleware\GraphQLMiddleware::class, 'graphql');
+    $app->post('/graphql', \Zestic\GraphQL\Middleware\GraphQLMiddleware::class, 'graphql');
 };
 ```

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace IamPersistent\GraphQL\Middleware\Factory;
+namespace Zestic\GraphQL\Middleware\Factory;
 
 use App\Jwt\JwtConfiguration;
 use GraphQL\Server\ServerConfig;
 use Psr\Container\ContainerInterface;
-use IamPersistent\GraphQL\Middleware\GraphQLMiddleware;
+use Zestic\GraphQL\Middleware\GraphQLMiddleware;
 
 final class GraphQLMiddlewareFactory
 {

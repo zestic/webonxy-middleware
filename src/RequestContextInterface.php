@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace IamPersistent\GraphQL\Middleware;
+namespace Zestic\GraphQL\Middleware;
 
 use GraphQL\Language\AST\DocumentNode;
 use GraphQL\Server\OperationParams;
