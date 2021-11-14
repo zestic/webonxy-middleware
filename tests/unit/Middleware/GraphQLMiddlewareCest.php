@@ -3,13 +3,14 @@ declare(strict_types=1);
 
 namespace Test\Unit\Middleware;
 
+use GraphQL\Server\ServerConfig;
 use GraphQL\Server\StandardServer;
+use IamPersistent\GraphQL\Middleware\GraphQLMiddleware;
+use Laminas\Diactoros\ServerRequest;
 use Prophecy\Prophet;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Fixture\Http\TestRequestHandler;
-use Xaddax\GraphQL\Middleware\GraphQLMiddleware;
 use UnitTester;
-use Zend\Diactoros\ServerRequest;
 
 class GraphQLMiddlewareCest
 {
@@ -19,7 +20,7 @@ class GraphQLMiddlewareCest
 
     public function __construct()
     {
-        $this->server = new StandardServer([]);
+        $this->server = new ServerConfig([]);
         $config = [
             'allowedHeaders' => [
                 'application/json',
