@@ -1,7 +1,7 @@
 Webonxy GraphQL Middleware
 ==========================
 
-To use the middleware in Zend Expressive, configure the factories
+To use the middleware in Laminas Mezzio, configure the factories
 
 in `config/autoload/dependencies.global.php`
 
@@ -10,7 +10,7 @@ return [
     'dependencies' => [
         'factories'  => [
             \GraphQL\Server\StandardServer::class => \Xaddax\GraphQL\Factory\StandardServerFactory::class,
-            \Xaddax\GraphQL\Middleware\GraphQLMiddleware::class => \Xaddax\GraphQL\Factory\GraphQLMiddlewareFactory::class,
+            \Zestic\GraphQL\Middleware\GraphQLMiddleware::class => \Xaddax\GraphQL\Factory\GraphQLMiddlewareFactory::class,
         ],
     ],
 ];
