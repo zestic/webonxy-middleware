@@ -1,5 +1,5 @@
 {
-  "name": "iampersistent/webonxy-middleware",
+  "name": "zestic/webonxy-middleware",
   "type": "library",
   "description": "Webonxy GraqhQL middleware",
   "keywords": [
