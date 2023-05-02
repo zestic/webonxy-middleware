@@ -118,8 +118,7 @@ final class GraphQLMiddleware implements MiddlewareInterface
         try {
             $decoded = JWT::decode(
                 $token,
-                $this->options["secret"],
-                (array) $this->options["algorithm"]
+                new Key($this->options["secret"], $this->options["algorithm"])
             );
             return (array) $decoded;
         } catch (Exception $exception) {
