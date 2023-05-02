@@ -5,6 +5,7 @@ namespace Zestic\GraphQL\Middleware;
 
 use App\Jwt\JwtConfiguration;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use GraphQL\Server\ServerConfig;
 use GraphQL\Server\StandardServer;
 use Laminas\Diactoros\Response\JsonResponse;
