@@ -16,12 +16,14 @@ final class ConfigProvider
     {
         return [
             'factories' => [
+                \Zestic\GraphQL\Middleware\GeneratedSchema::class =>
+                    \Zestic\GraphQL\Middleware\Factory\GeneratedSchemaFactory::class,
+                \Zestic\GraphQL\Middleware\GraphQLMiddleware::class =>
+                    \Zestic\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory::class,
                 \GraphQL\Type\Schema::class                              =>
                     \Zestic\GraphQL\Middleware\Factory\SchemaFactory::class,
                 \GraphQL\Server\ServerConfig::class =>
                     \Zestic\GraphQL\Middleware\Factory\ServerConfigFactory::class,
-                \Zestic\GraphQL\Middleware\GraphQLMiddleware::class =>
-                    \Zestic\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory::class,
             ],
         ];
     }
