@@ -3,5 +3,6 @@
 bin/
 composer.phar
 composer.lock
+.phpunit.result.cache
 tests/_support/_generated
 vendor/
