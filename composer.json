@@ -13,17 +13,34 @@
     "sort-packages": true
   },
   "require": {
-    "php": "^8.0",
+    "php": "^8.2",
+    "firebase/php-jwt": "^6.1.0",
+    "laminas/laminas-cache": "^4.0",
+    "laminas/laminas-cache-storage-adapter-filesystem": "^2.4",
+    "laminas/laminas-servicemanager": "^4.0.0-rc2",
+    "nesbot/carbon": "^2.16",
     "psr/container": "^1.0 || ^2.0",
     "psr/http-server-middleware": "^1.0",
     "psr/log": "^2.0 || ^3.0",
     "webonyx/graphql-php": "^15.0.0"
   },
   "require-dev": {
-    "codeception/codeception": "^4.0.0",
+    "codeception/codeception": "^5.0.0",
     "codeception/module-asserts": "dev-master",
+    "codeception/stub": "^4.1",
+    "laminas/laminas-diactoros": "^2.4",
     "phpspec/prophecy": "~1.0",
-    "laminas/laminas-diactoros": "^2.4"
+    "phpunit/phpunit": "^10.4@dev"
+  },
+  "repositories": {
+    "laminas/laminas-cache": {
+      "type": "vcs",
+      "url": "git@github.com:zestic/laminas-cache.git"
+    },
+    "laminas/laminas-cache-storage-adapter-filesystem": {
+      "type": "vcs",
+      "url": "git@github.com:zestic/laminas-cache-storage-adapter-filesystem.git"
+    }
   },
   "minimum-stability": "dev",
   "autoload": {
