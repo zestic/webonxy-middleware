@@ -7,14 +7,16 @@ use Psr\Container\ContainerInterface;
 
 final class TestContainer implements ContainerInterface
 {
-    private $values = [];
+    public function __construct(
+        public array $values = [],
+    ) {}
 
     public function get($id)
     {
         return $this->values[$id];
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         return isset($this->values[$id]);
     }
