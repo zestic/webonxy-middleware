@@ -5,7 +5,7 @@ namespace Zestic\GraphQL\Middleware;
 
 use Psr\Http\Message\ServerRequestInterface;
 
-interface RequestPreProcessorInterface
+interface RequestPreprocessorInterface
 {
     public function process(ServerRequestInterface $request): ServerRequestInterface;
 }

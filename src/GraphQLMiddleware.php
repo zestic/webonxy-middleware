@@ -17,7 +17,7 @@ final class GraphQLMiddleware implements MiddlewareInterface
     public function __construct(
         private readonly ServerConfig $serverConfig,
         private readonly array $allowedHeaders = [],
-        private readonly ?RequestPreProcessorInterface $requestPreProcessor = null,
+        private readonly ?RequestPreprocessorInterface $requestPreprocessor = null,
     ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -31,9 +31,9 @@ final class GraphQLMiddleware implements MiddlewareInterface
             $request = $request->withParsedBody(json_decode($json, true));
         }
 
-        if ($this->requestPreProcessor) {
+        if ($this->requestPreprocessor) {
             try {
-                $request = $this->requestPreProcessor->process($request);
+                $request = $this->requestPreprocessor->process($request);
             } catch (\Exception $exception) {
                 return new JsonResponse([
                     'errors' => [

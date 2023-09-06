@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Fixture\Http\TestRequestHandler;
 use Zestic\GraphQL\Middleware\GraphQLMiddleware;
-use Zestic\GraphQL\Middleware\RequestPreProcessorInterface;
+use Zestic\GraphQL\Middleware\RequestPreprocessorInterface;
 
 class GraphQLMiddlewareTest extends TestCase
 {
@@ -81,8 +81,8 @@ class GraphQLMiddlewareTest extends TestCase
             'query'     => 'query ping()',
         ];
         $request = $request->withParsedBody($data);
-        $requestPreProcessor = $this->createMock(RequestPreProcessorInterface::class);
-        $requestPreProcessor->expects($this->once())
+        $requestPreprocessor = $this->createMock(RequestPreprocessorInterface::class);
+        $requestPreprocessor->expects($this->once())
             ->method('process')
             ->willReturn($request);
         $allowedHeaders = [
@@ -90,7 +90,7 @@ class GraphQLMiddlewareTest extends TestCase
         ];
         $handler = new TestRequestHandler('Test Handler');
 
-        (new GraphQLMiddleware($this->serverConfig, $allowedHeaders, $requestPreProcessor))->process($request, $handler);
+        (new GraphQLMiddleware($this->serverConfig, $allowedHeaders, $requestPreprocessor))->process($request, $handler);
     }
 
     public function testPassRequestToStandardServer(): void
