@@ -5,7 +5,6 @@ namespace Tests\Unit\Factory;
 
 use GraphQL\Server\ServerConfig;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
 use Tests\Fixture\TestContainer;
 use Zestic\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory;
 use Zestic\GraphQL\Middleware\GraphQLMiddleware;

@@ -47,7 +47,12 @@ class GraphQLMiddlewareTest extends TestCase
         $this->middleware = new GraphQLMiddleware($this->serverConfig, $allowedHeaders);
     }
 
-    public function testSkippingIfNoHeader(): void
+    /**
+     * @test
+     *
+     * ::process
+     */
+    public function isSkippedIfThereIsNoHeader(): void
     {
         $request = $this->createRequest([]);
         $response = $this->makeRequest($request);
@@ -55,6 +60,11 @@ class GraphQLMiddlewareTest extends TestCase
         $this->assertSame('{"message":"Passed Through"}', (string) $response->getBody());
     }
 
+    /**
+     * @test
+     *
+     * ::process
+     */
     public function testSkippingIfNotGraphQLHeader(): void
     {
         $headers = [
@@ -66,7 +76,12 @@ class GraphQLMiddlewareTest extends TestCase
         $this->assertSame('{"message":"Passed Through"}', (string) $response->getBody());
     }
 
-    public function testSettingParsedBody(): void
+    /**
+     * @test
+     *
+     * ::process
+     */
+    public function parseBodyIsSet(): void
     {
         $request = $this->createRequest();
         $response = $this->makeRequest($request);
@@ -74,7 +89,12 @@ class GraphQLMiddlewareTest extends TestCase
         $this->assertSame('{"data":{"hello":"Hello World"}}', (string) $response->getBody());
     }
 
-    public function testCallingRequestPreProcessorInterface(): void
+    /**
+     * @test
+     *
+     * ::process
+     */
+    public function callRequestPreProcessorInterfaceIfPresent(): void
     {
         $request = $this->createRequest();
         $data = [
@@ -93,7 +113,12 @@ class GraphQLMiddlewareTest extends TestCase
         (new GraphQLMiddleware($this->serverConfig, $allowedHeaders, $requestPreprocessor))->process($request, $handler);
     }
 
-    public function testPassRequestToStandardServer(): void
+    /**
+     * @test
+     *
+     * ::process
+     */
+    public function requestIsPassedToStandardServer(): void
     {
         $headers = [
             'content-type' => 'application/json',
