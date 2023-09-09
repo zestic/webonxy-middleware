@@ -6,6 +6,7 @@
     "GraphQl",
     "PSR-7",
     "PSR-15",
+    "Laminas",
     "webonxy"
   ],
   "license": "MIT",
@@ -25,9 +26,6 @@
     "webonyx/graphql-php": "^15.0.0"
   },
   "require-dev": {
-    "codeception/codeception": "^5.0.0",
-    "codeception/module-asserts": "dev-master",
-    "codeception/stub": "^4.1",
     "laminas/laminas-diactoros": "^2.4",
     "phpspec/prophecy": "~1.0",
     "phpunit/phpunit": "^10.4@dev"
@@ -50,9 +48,9 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\Fixture\\": "tests/_support/Fixture",
-      "Tests\\Functional\\": "tests/functional",
-      "Tests\\Unit\\": "tests/unit"
+      "Test\\Fixture\\": "tests/Fixture/src",
+      "Test\\Integration\\": "tests/integration",
+      "Test\\Unit\\": "tests/unit"
     }
   }
 }
