@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Factory;
+namespace Test\Unit\Factory;
 
 use GraphQL\Server\ServerConfig;
 use PHPUnit\Framework\TestCase;
-use Tests\Fixture\TestContainer;
+use Test\Fixture\TestContainer;
 use Zestic\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory;
 use Zestic\GraphQL\Middleware\GraphQLMiddleware;
 use Zestic\GraphQL\Middleware\RequestPreprocessorInterface;

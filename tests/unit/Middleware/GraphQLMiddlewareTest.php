@@ -11,7 +11,7 @@ use GraphQL\Type\SchemaConfig;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use Tests\Fixture\Http\TestRequestHandler;
+use Test\Fixture\Http\TestRequestHandler;
 use Zestic\GraphQL\Middleware\GraphQLMiddleware;
 use Zestic\GraphQL\Middleware\RequestPreprocessorInterface;
 
