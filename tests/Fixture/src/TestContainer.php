@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Fixture;
+namespace Test\Fixture;
 
 use Psr\Container\ContainerInterface;
 
