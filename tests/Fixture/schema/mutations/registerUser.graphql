@@ -1,0 +1,22 @@
+mutation RegisterUser($registerUserInput: RegisterUserInput!) {
+    registerUser(registerUserInput: $registerUserInput) {
+        jwt
+        user {
+            id
+        }
+    }
+}
+
+input RegisterUserInput {
+    email: String!
+    name: String!
+    referralCode: String
+    password: String!
+    username: String!
+}
+
+type RegisterUserResult {
+    expiresAt: Int
+    jwt: String!
+    user: User!
+}

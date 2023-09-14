@@ -1,0 +1,13 @@
+query hello($helloInput: HelloInput!) {
+    hello(helloInput: $helloInput) {
+        message
+    }
+}
+
+input HelloInput {
+    name: String!
+}
+
+type HelloResult {
+    message: String!
+}

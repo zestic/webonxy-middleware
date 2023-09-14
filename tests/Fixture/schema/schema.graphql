@@ -1,0 +1,7 @@
+type Query {
+    hello(helloInput: HelloInput): HelloResult
+}
+
+type Mutation {
+    registerUser(registerUserInput: RegisterUserInput): RegisterUserResult
+}
