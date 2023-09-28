@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Test\Unit\Factory;
 
 use GraphQL\Type\Schema;
-use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Test\Fixture\TestContainer;
