@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Zestic\GraphQL\Middleware\Factory;
 
 use GraphQL\Language\AST\DocumentNode;
+use GraphQL\Language\AST\Node;
 use GraphQL\Language\Parser;
 use GraphQL\Type\Schema;
 use GraphQL\Utils\BuildSchema;
@@ -13,27 +14,23 @@ use Psr\Container\ContainerInterface;
 class GeneratedSchemaFactory
 {
     private array $files;
+    private string $schemaCacheFile;
 
     public function __invoke(ContainerInterface $container): Schema
     {
         $containerConfig = $container->get('config');
         $config = $containerConfig['graphQL']['serverConfig'];
         $schemaDirectories = $config['schemaDirectories'];
+        $this->schemaCacheFile = $config['schemaCacheFile'];
 
         $source = $this->getSourceAST($schemaDirectories);
-        $typeConfigDecorator = function () {};
 
         return BuildSchema::build($source);
     }
 
     private function isCacheValid(): bool
     {
-        return false;
-    }
-
-    private function getCacheFilename(): string
-    {
-
+        return file_exists($this->schemaCacheFile);
     }
 
     private function buildSourceAST(array $schemaDirectories): DocumentNode
@@ -43,9 +40,15 @@ class GeneratedSchemaFactory
        return Parser::parse($source);
     }
 
-    private function getSourceAST(array $schemaDirectories): DocumentNode
+    private function getSourceAST(array $schemaDirectories): Node
     {
-       return $this->buildSourceAST($schemaDirectories);
+        if ($this->isCacheValid()) {
+            return $this->readSourceASTFromCache();
+        }
+        $source = $this->buildSourceAST($schemaDirectories);
+        $this->writeSourceASTToCache($source);
+
+        return $source;
     }
 
     private function readGraphQLFiles(array $schemaDirectories): string
@@ -58,6 +61,16 @@ class GeneratedSchemaFactory
         }
 
         return $source;
+    }
+
+    private function readSourceASTFromCache(): Node
+    {
+        return AST::fromArray(require $this->schemaCacheFile);
+    }
+
+    private function writeSourceASTToCache(DocumentNode $source): void
+    {
+        file_put_contents($this->schemaCacheFile, "<?php\nreturn " . var_export(AST::toArray($source), true) . ";\n");
     }
 
     private function scanDirectories(array $directories): void
@@ -82,19 +95,6 @@ class GeneratedSchemaFactory
         }
         if (!empty($subDirectories)) {
             $this->scanDirectories($subDirectories);
-        }
-    }
-
-    private function example(): void
-    {
-
-        $cacheFilename = 'cached_schema.php';
-
-        if (!file_exists($cacheFilename)) {
-            $source = Parser::parse(file_get_contents('./schema.graphql'));
-            file_put_contents($cacheFilename, "<?php\nreturn " . var_export(AST::toArray($source), true) . ";\n");
-        } else {
-            $source = AST::fromArray(require $cacheFilename); // fromArray() is a lazy operation as well
         }
     }
 }

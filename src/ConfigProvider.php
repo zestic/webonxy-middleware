@@ -16,7 +16,7 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                \Zestic\GraphQL\Middleware\GeneratedSchema::class =>
+                'generatedSchema' =>
                     \Zestic\GraphQL\Middleware\Factory\GeneratedSchemaFactory::class,
                 \Zestic\GraphQL\Middleware\GraphQLMiddleware::class =>
                     \Zestic\GraphQL\Middleware\Factory\GraphQLMiddlewareFactory::class,
