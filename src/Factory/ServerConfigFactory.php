@@ -15,8 +15,8 @@ final class ServerConfigFactory
 
         $config = $containerConfig['graphQL']['serverConfig'] ?? [];
 
-        $schemaClass = $config['schema'] ?? Schema::class;
-        $config['schema'] = $container->get($schemaClass);
+        $schema = $config['schema'] ?? Schema::class;
+        $config['schema'] = $container->get($schema);
 
         $callables = [
             'context',
