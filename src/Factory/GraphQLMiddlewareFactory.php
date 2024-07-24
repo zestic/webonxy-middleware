@@ -22,6 +22,6 @@ final class GraphQLMiddlewareFactory
 
     private function getPreprocessor(ContainerInterface $container, array $config): ?RequestPreprocessorInterface
     {
-        return $config['preprocessor'] ? $container->get($config['preprocessor']) : null;
+        return isset($config['preprocessor']) ? $container->get($config['preprocessor']) : null;
     }
 }
