@@ -12,6 +12,9 @@ final class SchemaFactory
     {
         $config = $container->get('config')['graphQL'];
         $schemaClass = $config['schema'] ?? Schema::class;
+        if ($schemaClass === 'generatedSchema') {
+            return $container->get($schemaClass);
+        }
         if (!isset($config['schemaConfig'])) {
             return new $schemaClass;
         }

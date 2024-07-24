@@ -9,54 +9,90 @@ use GraphQL\Language\Parser;
 use GraphQL\Type\Schema;
 use GraphQL\Utils\BuildSchema;
 use GraphQL\Utils\AST;
+use Laminas\ConfigAggregator\ConfigAggregator;
 use Psr\Container\ContainerInterface;
 
 class GeneratedSchemaFactory
 {
-    private array $files;
+    private bool $cacheEnabled = false;
+    private string $directoryChangeCacheFile;
+    private array $parserOptions;
     private string $schemaCacheFile;
+    private array $schemaDirectories;
+    private array $schemaFiles;
 
     public function __invoke(ContainerInterface $container): Schema
     {
         $containerConfig = $container->get('config');
-        $config = $containerConfig['graphQL']['serverConfig'];
-        $schemaDirectories = $config['schemaDirectories'];
-        $this->schemaCacheFile = $config['schemaCacheFile'];
+        $config = $containerConfig['graphQL']['generatedSchema'];
+        $cacheConfig = $config['cache'] ?? [];
+        $alwaysEnabled = $cacheConfig['alwaysEnabled'] ?? false;
+        $systemEnabled = $containerConfig[ConfigAggregator::ENABLE_CACHE ] ?? false;
+        $this->cacheEnabled = $alwaysEnabled || $systemEnabled;
+        $this->schemaDirectories = $config['schemaDirectories'];
+        $cacheDirectory = $cacheConfig['directory'] ?? getcwd() . '/' . $containerConfig['cache_directory'] . '/graphql';
+        $directoryChangeFilename = $cacheConfig['directoryChangeFilename'] ?? 'schema-directory-cache.php';
+        $this->directoryChangeCacheFile = $cacheDirectory . '/' . $directoryChangeFilename;
+        $schemaFilename = $cacheConfig['schemaFilename'] ?? 'schema-cache.php';
+        $this->schemaCacheFile = $cacheDirectory . '/' . $schemaFilename;
+        $this->parserOptions = $config['parserOptions']?? [];
 
-        $source = $this->getSourceAST($schemaDirectories);
-
-        return BuildSchema::build($source);
+        return BuildSchema::build($this->getSourceAST());
     }
 
     private function isCacheValid(): bool
     {
-        return file_exists($this->schemaCacheFile);
+        return
+            $this->cacheEnabled &&
+            !$this->isDirectoryChangeDetected() &&
+            file_exists($this->schemaCacheFile);
     }
 
-    private function buildSourceAST(array $schemaDirectories): DocumentNode
+    private function isDirectoryChangeDetected(): bool
     {
-       $source = $this->readGraphQLFiles($schemaDirectories);
+        $currentFiles = $this->schemaFiles;
+        $previousFiles = $this->readDirectoryChangeCache();
 
-       return Parser::parse($source);
+        return $currentFiles !== $previousFiles;
     }
 
-    private function getSourceAST(array $schemaDirectories): Node
+    private function readDirectoryChangeCache(): array
     {
+        if (file_exists($this->directoryChangeCacheFile)) {
+            return require $this->directoryChangeCacheFile;
+        }
+
+        return [];
+    }
+
+    private function buildSourceAST(): DocumentNode
+    {
+       $source = $this->readGraphQLFiles();
+
+       return Parser::parse($source, $this->parserOptions);
+    }
+
+    private function getSourceAST(): Node
+    {
+        // the directories need to be scanned for both cache checking
+        // and source building, so do it before anything else
+        $this->scanDirectories($this->schemaDirectories);
+
         if ($this->isCacheValid()) {
             return $this->readSourceASTFromCache();
         }
-        $source = $this->buildSourceAST($schemaDirectories);
+        $source = $this->buildSourceAST();
         $this->writeSourceASTToCache($source);
+        $this->writeDirectoryChangeCache();
 
         return $source;
     }
 
-    private function readGraphQLFiles(array $schemaDirectories): string
+    private function readGraphQLFiles(): string
     {
-        $this->scanDirectories($schemaDirectories);
-
         $source = '';
-        foreach ($this->files as $file) {
+        $schemaFiles = array_keys($this->schemaFiles);
+        foreach ($schemaFiles as $file) {
             $source .= file_get_contents($file);
         }
 
@@ -66,6 +102,11 @@ class GeneratedSchemaFactory
     private function readSourceASTFromCache(): Node
     {
         return AST::fromArray(require $this->schemaCacheFile);
+    }
+
+    private function writeDirectoryChangeCache(): void
+    {
+        file_put_contents($this->directoryChangeCacheFile, "<?php\nreturn " . var_export($this->schemaFiles, true) . ";\n");
     }
 
     private function writeSourceASTToCache(DocumentNode $source): void
@@ -83,7 +124,8 @@ class GeneratedSchemaFactory
                         $filePath = $directory . '/' . $file;
                         $info = pathinfo($filePath);
                         if (isset($info['extension']) && $info['extension'] === 'graphql') {
-                            $this->files[] = realpath($filePath);
+                            $key = realpath($filePath);
+                            $this->schemaFiles[$key] = filemtime($key);
                         };
                         if ($info['basename'] === $info['filename']) {
                             $subDirectories[] = $filePath;
