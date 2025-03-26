@@ -14,7 +14,7 @@
     "sort-packages": true
   },
   "require": {
-    "php": "^8.3",
+    "php": "^8.3 || ^8.4",
     "firebase/php-jwt": "^6.1.0",
     "laminas/laminas-cache": "^4.0",
     "laminas/laminas-cache-storage-adapter-filesystem": "^2.4 || ^3.0",
